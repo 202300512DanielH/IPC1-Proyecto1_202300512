@@ -52,9 +52,11 @@ public class Panel_Login extends javax.swing.JPanel{
         this.add(jLabel3);
         
         txt_Codigo.setBounds(300, 200, 200, 25);
+        txt_Codigo.setText("202300512");
         add(txt_Codigo);
         
         txt_Password.setBounds(300, 250, 200, 25);
+        txt_Password.setText("proyecto1IPC1");
         add(txt_Password);
 
         btn_Login.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -75,7 +77,7 @@ public class Panel_Login extends javax.swing.JPanel{
         });
         this.add(btn_Login);
         
-        btn_Registrate = new javax.swing.JButton("Registrarse");
+        btn_Registrate = new javax.swing.JButton("Registrate");
         btn_Registrate.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Registrate.setForeground(new java.awt.Color(0, 0, 0));
         btn_Registrate.setBounds(370, 320, 120, 30);
@@ -93,10 +95,13 @@ public class Panel_Login extends javax.swing.JPanel{
         //Aqui la funcionalidad de mi boton ingresar
         int codigo = Integer.parseInt(txt_Codigo.getText());
         String password = txt_Password.getText();
+        
         Persona_Controller p_Controller = new Persona_Controller();
         panelFind = p_Controller.Login(codigo, password);
+        Panel_Controller panel_Controller = new Panel_Controller();
+        
         if(panelFind != null){
-            
+            panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
         }
     }
     
