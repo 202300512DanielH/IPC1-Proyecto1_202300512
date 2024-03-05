@@ -12,7 +12,6 @@ public class Panel_Menu_Administrador extends javax.swing.JPanel{
     private javax.swing.JButton btn_Administrar_Productos;
     private javax.swing.JButton btn_Reportes;
     private javax.swing.JButton btn_Cerrar_Sesion;
-    private java.awt.CardLayout plantilla;
     private javax.swing.JPanel panel_Centro;
     
     public Panel_Menu_Administrador(){
@@ -28,7 +27,6 @@ public class Panel_Menu_Administrador extends javax.swing.JPanel{
         btn_Administrar_Productos = new javax.swing.JButton("Productos");
         btn_Cerrar_Sesion = new javax.swing.JButton("Cerrar Sesión");
         btn_Reportes = new javax.swing.JButton("Reportes");
-        plantilla = new java.awt.CardLayout();
         panel_Centro = new javax.swing.JPanel();
         
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
@@ -37,52 +35,58 @@ public class Panel_Menu_Administrador extends javax.swing.JPanel{
         titulo.setBounds(250, 30, 300, 30);
         this.add(titulo);
         
-        int buttonWidth = 120;
-        int buttonHeight = 30;
-        int initialX = 120;
-        int horizontalSpacing = 20;
-        
-        
+        int buttonWidth = 140;
+        int buttonHeight = 40;
+        int initialX = 320;
+        int initialY = 200;  // Cambiada la coordenada Y inicial
+        int verticalSpacing = 50;  // Espacio vertical entre botones
         
         btn_Administrar_Doctores.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Administrar_Doctores.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Administrar_Doctores.setBounds(initialX, 100, buttonWidth, buttonHeight);
+        btn_Administrar_Doctores.setBounds(initialX, initialY, buttonWidth, buttonHeight);
         btn_Administrar_Doctores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_Administrar_DoctoresActionPerformed(evt);
             }
         });
         add(btn_Administrar_Doctores);
+        initialY += verticalSpacing;  // Aumenta la coordenada Y para el siguiente botón
+
         
         btn_Administrar_Pacientes.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Administrar_Pacientes.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Administrar_Pacientes.setBounds(initialX + buttonWidth + horizontalSpacing, 100, buttonWidth, buttonHeight);
+        btn_Administrar_Pacientes.setBounds(initialX, initialY, buttonWidth, buttonHeight);
         btn_Administrar_Pacientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_Administrar_PacientesActionPerformed(evt);
             }
         });
         add(btn_Administrar_Pacientes);
+        initialY += verticalSpacing;  // Aumenta la coordenada Y para el siguiente botón
+
         
         btn_Administrar_Productos.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Administrar_Productos.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Administrar_Productos.setBounds(initialX + 2 * (buttonWidth + horizontalSpacing), 100, buttonWidth, buttonHeight);
+        btn_Administrar_Productos.setBounds(initialX, initialY, buttonWidth, buttonHeight);
         btn_Administrar_Productos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_Administrar_ProductosActionPerformed(evt);
             }
         });
         add(btn_Administrar_Productos);
+        initialY += verticalSpacing;  // Aumenta la coordenada Y para el siguiente botón
+
         
         btn_Reportes.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Reportes.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Reportes.setBounds(initialX + 3 * (buttonWidth + horizontalSpacing), 100, buttonWidth, buttonHeight);
+        btn_Reportes.setBounds(initialX, initialY, buttonWidth, buttonHeight);
         btn_Reportes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ReportesActionPerformed(evt);
             }
         });
         add(btn_Reportes);
+        initialY += verticalSpacing;  // Aumenta la coordenada Y para el siguiente botón
         
         btn_Cerrar_Sesion.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Cerrar_Sesion.setForeground(new java.awt.Color(0, 0, 0));
@@ -98,7 +102,9 @@ public class Panel_Menu_Administrador extends javax.swing.JPanel{
     }
     
     private void btn_Administrar_DoctoresActionPerformed(java.awt.event.ActionEvent evt) {
-        // Lógica para administrar doctores
+        Panel_Controller panel_Controller = new Panel_Controller();
+        panelFind = panel_Controller.get_Panel_Control_Doctores();
+        panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
     }
     
     private void btn_Administrar_PacientesActionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,5 +124,4 @@ public class Panel_Menu_Administrador extends javax.swing.JPanel{
         panelFind = panel_Controller.get_Panel_Login();
         panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
     }
-    
 }

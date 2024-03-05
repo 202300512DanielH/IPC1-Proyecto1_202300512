@@ -1,6 +1,7 @@
 
 package controller;
 
+import Models.Doctor;
 import Models.Paciente;
 import java.util.ArrayList;
 import Models.Persona;
@@ -11,9 +12,10 @@ public class Persona_Controller {
     static Panel_Controller panel_Control = new Panel_Controller();
     static javax.swing.JPanel cambioPanel = null;
     static ArrayList<Paciente> lista_Pacientes = new ArrayList<Paciente>();
+    static ArrayList<Doctor> lista_Doctores = new ArrayList<Doctor>();
     static Persona admin = new Persona(202300512, "admin", "", "proyecto1IPC1", "", 0, "ADMIN");
-    static public int id_Persona_Logueada;
-    static public String rol_Persona_Logueada;
+    static int id_Persona_Logueada;
+    static String rol_Persona_Logueada;
     
     public javax.swing.JPanel Login(int codigo, String password){
         
@@ -34,6 +36,16 @@ public class Persona_Controller {
                 return null;
             }
         }
+        
+        for (int i = 0; i < lista_Doctores.size(); i++){
+            Persona persona = lista_Doctores.get(i);
+            if (persona.getid() == codigo && persona.getContraseña().equals(password)){
+                id_Persona_Logueada = persona.getid();
+                rol_Persona_Logueada = persona.getRol();
+                JOptionPane.showMessageDialog(null, "Se ha iniciado Sesion");
+                return null;
+            }
+        }
         JOptionPane.showMessageDialog(null,"Contraseña o codigo incorrecto");
         return null;
     }
@@ -44,6 +56,13 @@ public class Persona_Controller {
         lista_Pacientes.add(paciente_Nuevo);
         JOptionPane.showMessageDialog(null, "Su código de inición es:"+"\n"+codigo);        
         return null;
+    }
+    
+    public void Crear_Doctor(String nombres, String apellidos, String password, int edad, String sexo, int telefono, String especialidad){
+        int codigo = lista_Doctores.size();
+        Doctor doctor_Nuevo = new Doctor(codigo,nombres,apellidos,password,sexo,edad,"Dcotor",especialidad,telefono);
+        lista_Doctores.add(doctor_Nuevo);
+        JOptionPane.showMessageDialog(null, "Se a creado al doctor con exito, su codigo es:"+"\n"+codigo);        
     }
     
     public ArrayList<Paciente> get_Lista_Usuarios(){
