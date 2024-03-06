@@ -16,6 +16,7 @@ public class Persona_Controller {
     static Persona admin = new Persona(202300512, "admin", "", "proyecto1IPC1", "", 0, "ADMIN");
     static int id_Persona_Logueada;
     static String rol_Persona_Logueada;
+    static int codigo = 0;
     
     public javax.swing.JPanel Login(int codigo, String password){
         
@@ -51,7 +52,7 @@ public class Persona_Controller {
     }
     
     public javax.swing.JPanel Registrarse(String nombres, String apellidos, String password, int edad, String sexo){
-        int codigo = lista_Pacientes.size();
+        codigo = codigo + 1;
         Paciente paciente_Nuevo = new Paciente(codigo, nombres, apellidos, password, sexo, edad, "Paciente");
         lista_Pacientes.add(paciente_Nuevo);
         JOptionPane.showMessageDialog(null, "Su código de inición es:"+"\n"+codigo);        
@@ -59,13 +60,71 @@ public class Persona_Controller {
     }
     
     public void Crear_Doctor(String nombres, String apellidos, String password, int edad, String sexo, int telefono, String especialidad){
-        int codigo = lista_Doctores.size();
-        Doctor doctor_Nuevo = new Doctor(codigo,nombres,apellidos,password,sexo,edad,"Dcotor",especialidad,telefono);
+        codigo = codigo + 1;
+        Doctor doctor_Nuevo = new Doctor(codigo,nombres,apellidos,password,sexo,edad,"Doctor",especialidad,telefono);
         lista_Doctores.add(doctor_Nuevo);
         JOptionPane.showMessageDialog(null, "Se a creado al doctor con exito, su codigo es:"+"\n"+codigo);        
     }
     
-    public ArrayList<Paciente> get_Lista_Usuarios(){
-        return lista_Pacientes;
+    public Persona buscar_Persona(int codigo_Unico,String rol){        
+        if(rol.equals("Doctor")){
+            for (int i = 0; i < lista_Doctores.size(); i++){
+                Doctor doctor_Obtenido = lista_Doctores.get(i);
+                if(doctor_Obtenido.getid() == codigo_Unico && doctor_Obtenido.getRol().equals(rol)){
+                    return doctor_Obtenido;
+                }
+            }
+        }else{
+            for (int i = 0; i < lista_Pacientes.size(); i++){
+                Paciente paciente_Obtenido = lista_Pacientes.get(i);
+                if(paciente_Obtenido.getid() == codigo_Unico && paciente_Obtenido.getRol().equals(rol)){
+                    return paciente_Obtenido;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    public boolean eliminar_Persona(int codigo_Unico, String rol){
+        if(rol.equals("Doctor")){
+            for (int i = 0; i < lista_Doctores.size(); i++){
+                Doctor doctor_Obtenido = lista_Doctores.get(i);
+                if(doctor_Obtenido.getid() == codigo_Unico && doctor_Obtenido.getRol().equals(rol)){
+                    lista_Doctores.remove(i);
+                    return true;
+                }
+            }
+        }else{
+            for (int i = 0; i < lista_Pacientes.size(); i++){
+                Paciente paciente_Obtenido = lista_Pacientes.get(i);
+                if(paciente_Obtenido.getid() == codigo_Unico && paciente_Obtenido.getRol().equals(rol)){
+                    lista_Pacientes.remove(i);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    public void actualizar_Doctor(int codigo_Unico, String nombres, String apellidos, String password, int edad, String sexo, int telefono, String especialidad){
+        for (int i = 0; i < lista_Doctores.size(); i++){
+            Doctor doctor_Obtenido = lista_Doctores.get(i);
+            if(doctor_Obtenido.getid() == codigo_Unico){
+                doctor_Obtenido.setNombre(nombres);
+                doctor_Obtenido.setApellido(apellidos);
+                doctor_Obtenido.setContraseña(password);
+                doctor_Obtenido.setEdad(edad);
+                doctor_Obtenido.setSexo(sexo);
+                doctor_Obtenido.setTelefono(telefono);
+                doctor_Obtenido.setEspecialidad(especialidad);
+                lista_Doctores.set(i, doctor_Obtenido);
+                break; // Termina el ciclo una vez que se actualiza el doctor
+            }
+        }
+    }
+    
+    public void primer_Doctor(){
+        lista_Doctores.add(new Doctor(0,"Doctor1","---","123","Masculino",20,"Doctor","Cirujano",123456));
     }
 }

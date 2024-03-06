@@ -1,9 +1,12 @@
 
 package Panel.administrador;
 
+import Models.Doctor;
 import controller.Panel_Controller;
 import controller.Persona_Controller;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 public class Panel_Control_Doctores extends javax.swing.JPanel{
@@ -28,6 +31,9 @@ public class Panel_Control_Doctores extends javax.swing.JPanel{
     private javax.swing.JButton btn_Crear_Doctor;
     private javax.swing.JButton btn_Actualizar;
     private javax.swing.JButton btn_Eliminar;
+    private javax.swing.JButton btn_Aceptar_Cambios;
+    private javax.swing.JButton btn_Cancelar_Cambios;
+    private int codigo;
     
     public Panel_Control_Doctores(){
         initComponents();
@@ -55,6 +61,8 @@ public class Panel_Control_Doctores extends javax.swing.JPanel{
         btn_Crear_Doctor = new javax.swing.JButton();
         btn_Actualizar = new javax.swing.JButton();
         btn_Eliminar = new javax.swing.JButton();
+        btn_Aceptar_Cambios = new javax.swing.JButton();
+        btn_Cancelar_Cambios = new javax.swing.JButton();
         
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
         titulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -172,13 +180,37 @@ public class Panel_Control_Doctores extends javax.swing.JPanel{
         });
         this.add(btn_Eliminar);
         
+        btn_Aceptar_Cambios.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btn_Aceptar_Cambios.setForeground(new java.awt.Color(0, 0, 0));
+        btn_Aceptar_Cambios.setText("Actualizar");
+        btn_Aceptar_Cambios.setBounds(50, 450, 150, 30);
+        btn_Aceptar_Cambios.setBackground(new java.awt.Color(0, 153, 51)); // Color rojo
+        btn_Aceptar_Cambios.setVisible(false);
+        btn_Aceptar_Cambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Aceptar_CambiosActionPerformed(evt);
+            }
+        });
+        this.add(btn_Aceptar_Cambios);
+        
+        btn_Cancelar_Cambios.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btn_Cancelar_Cambios.setForeground(new java.awt.Color(0, 0, 0));
+        btn_Cancelar_Cambios.setText("Cancelar");
+        btn_Cancelar_Cambios.setBounds(220, 450, 150, 30);
+        btn_Cancelar_Cambios.setBackground(new java.awt.Color(255, 0, 0)); // Color azul
+        btn_Cancelar_Cambios.setVisible(false);
+        btn_Cancelar_Cambios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_Cancelar_CambiosActionPerformed(evt);
+            }
+        });
+        this.add(btn_Cancelar_Cambios);
+        
         setBackground(new java.awt.Color(171,255,213));
     }
     
     private void btn_RegresarActionPerformed(java.awt.event.ActionEvent evt) {
-        Panel_Controller panel_Controller = new Panel_Controller();
-        panelFind = panel_Controller.get_Panel_Menu_Administrador();
-        panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
+        regresar();
     }
     
     private void btn_Crear_DoctorActionPerformed(java.awt.event.ActionEvent evt){
@@ -193,19 +225,92 @@ public class Panel_Control_Doctores extends javax.swing.JPanel{
             
             Persona_Controller persona_Controller = new Persona_Controller();
             persona_Controller.Crear_Doctor(nombres, apellidos, password, edad, sexo, telefono, especialidad);
-            Panel_Controller panel_Controller = new Panel_Controller();
-            panelFind = panel_Controller.get_Panel_Menu_Administrador();
-            panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
+            regresar();
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Edad o Telefono no son numeros enteros");            
         }
     }
     
-    private void btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt){
+    private void regresar(){
+        Panel_Controller panel_Controller = new Panel_Controller();
+        panelFind = panel_Controller.get_Panel_Menu_Administrador();
+        panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
+    }
     
+    private void btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt){
+        // Mostrar un cuadro de diálogo de entrada para que el usuario ingrese un código
+        try{
+            codigo = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el código del doctor a actualizar:", "Código Doctor", JOptionPane.PLAIN_MESSAGE));
+            Persona_Controller persona_Controller = new Persona_Controller();
+            Doctor doctor_Encontrado = (Doctor)persona_Controller.buscar_Persona(codigo,"Doctor");
+            if (doctor_Encontrado != null){
+                txt_Nombres.setText(doctor_Encontrado.getNombre());
+                txt_Apellidos.setText(doctor_Encontrado.getApellido());
+                txt_Password.setText(doctor_Encontrado.getContraseña());
+                txt_Especialidad.setText(doctor_Encontrado.getEspecialidad());
+                txt_Telefono.setText(String.valueOf(doctor_Encontrado.getTelefono()));
+                txt_Edad.setText(String.valueOf(doctor_Encontrado.getEdad()));
+                cmb_Genero.setSelectedItem(doctor_Encontrado.getSexo());
+                uso_Boton(false);
+            }else{
+                JOptionPane.showMessageDialog(null, "Doctor no encontrado o no existe");
+            }
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "El codigo proporcionado debe ser numeros enteros");
+        }
+        
+    }
+    
+    private void btn_Aceptar_CambiosActionPerformed(ActionEvent evt) {
+        try {
+            int edad = Integer.parseInt(txt_Edad.getText());
+            String nombres = txt_Nombres.getText();
+            String apellidos = txt_Apellidos.getText();
+            String sexo = cmb_Genero.getSelectedItem().toString();
+            String password = txt_Password.getText();
+            String especialidad = txt_Especialidad.getText();
+            int telefono = Integer.parseInt(txt_Telefono.getText());
+            
+            Persona_Controller persona_Controller = new Persona_Controller();
+            persona_Controller.actualizar_Doctor(codigo, nombres, apellidos, password, edad, sexo, telefono, especialidad);
+            JOptionPane.showMessageDialog(null, "Se han actualizado los datos del doctor correctamente");
+            regresar();
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Edad o Telefono no son numeros enteros");
+        }
+    }
+    
+    private void btn_Cancelar_CambiosActionPerformed(ActionEvent evt) {
+        txt_Nombres.setText("");
+        txt_Apellidos.setText("");
+        txt_Password.setText("");
+        txt_Especialidad.setText("");
+        txt_Telefono.setText(String.valueOf(""));
+        txt_Edad.setText(String.valueOf(""));
+        uso_Boton(true);
+    }
+    
+    private void uso_Boton(boolean valor){
+        btn_Crear_Doctor.setEnabled(valor);
+        btn_Actualizar.setEnabled(valor);
+        btn_Eliminar.setEnabled(valor);
+        if(!valor){
+            btn_Aceptar_Cambios.setVisible(true);
+            btn_Cancelar_Cambios.setVisible(true);
+        }else{
+            btn_Aceptar_Cambios.setVisible(false);
+            btn_Cancelar_Cambios.setVisible(false);
+        }
     }
     
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt){
-    
+        codigo = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el código del doctor a eliminar:", "Código Doctor", JOptionPane.PLAIN_MESSAGE));
+        Persona_Controller persona_Controller = new Persona_Controller();
+        boolean resultado = persona_Controller.eliminar_Persona(codigo, "Doctor");
+        if(resultado){
+            JOptionPane.showMessageDialog(null, "El doctor ha sido encontrado y eliminado exitosamente");
+        }else{
+            JOptionPane.showMessageDialog(null, "El doctor no ha sido encotrado o no existe");
+        }
     }
 }
