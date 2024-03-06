@@ -2,10 +2,20 @@
 package Panel.administrador;
 
 import Models.Doctor;
+import Models.Frecuencia;
+import Models.Producto;
 import controller.Panel_Controller;
 import controller.Persona_Controller;
+import controller.Productos_Controller;
+import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Panel_Reportes extends javax.swing.JPanel{
     
@@ -18,7 +28,11 @@ public class Panel_Reportes extends javax.swing.JPanel{
     public javax.swing.JTable tbl_Base;
     private javax.swing.JScrollPane jScrollPane1;
     private ArrayList<Doctor> lista_Doctores = new ArrayList<Doctor>();
+    private ArrayList<Producto> lista_Productos = new ArrayList<Producto>();
     private Persona_Controller persona_Controller = new Persona_Controller();
+    private Productos_Controller productos_Controller = new Productos_Controller();
+    private ArrayList<Frecuencia> lista_Frecuencias = new ArrayList<Frecuencia>();
+    private ChartPanel panel;
     
     public Panel_Reportes(){
         initComponents();
@@ -29,12 +43,18 @@ public class Panel_Reportes extends javax.swing.JPanel{
         
         setLayout(null);
         lista_Doctores = persona_Controller.get_Lista_Doctores();
+        lista_Productos = productos_Controller.get_Lista_Productos();
         titulo = new javax.swing.JLabel();
         btn_Regresar = new javax.swing.JButton();
         btn_Doctores = new javax.swing.JButton();
         btn_Productos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_Base = new javax.swing.JTable();
+        
+        panel = new ChartPanel(null);
+        panel.setMouseWheelEnabled(true);
+        panel.setBounds(50, 300, 700, 280);
+        this.add(panel);
         
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
         titulo.setForeground(new java.awt.Color(0, 0, 0));
@@ -82,7 +102,7 @@ public class Panel_Reportes extends javax.swing.JPanel{
         jScrollPane1.setViewportView(tbl_Base);
         
         int x = 50;
-        int y = 200;
+        int y = 170;
         int width = 700;
         int height = 120;
         
@@ -111,11 +131,61 @@ public class Panel_Reportes extends javax.swing.JPanel{
         generarEstructuraDoctores();
         // Cargar datos de la lista de doctores en la tabla
         cargarDatosDoctores();
+        generar_Grafica_Doctores();
     }
     
     private void btn_ProductosActionPerformed(java.awt.event.ActionEvent evt) {
         model.setRowCount(0);
         generarEstructuraProductos();
+        //Cargar datos de la lista de products en la tabla
+        cargarDatosProductos();
+        generar_Grafica_Producos();
+    }
+    
+    
+    private void generar_Grafica_Producos(){
+        ArrayList<Producto> lista_Productos = productos_Controller.get_Lista_Productos_Ordenados();
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        for(int i = 0; i < 3; i++){
+            Producto producto = lista_Productos.get(i);
+            datos.setValue(producto.getCantidad(), "Top Produdctos", producto.getNombre());
+        }
+        
+        JFreeChart grafico_Barras = ChartFactory.createBarChart3D(
+            "Top 3 Productos",
+            "Productos",
+            "Cantidad",
+            datos,
+            PlotOrientation.VERTICAL,
+            true,
+            true,
+            false
+        );
+        panel.setChart(grafico_Barras);
+    }
+    
+    private void generar_Grafica_Doctores(){
+        if(lista_Frecuencias.size() == 0){
+            Persona_Controller persona_Controller = new Persona_Controller();
+            lista_Frecuencias = persona_Controller.registrarFrecuenciaEspecialidad();
+        }
+        DefaultCategoryDataset datos = new DefaultCategoryDataset();
+        for(int i = 0; i < 5; i++){
+            Frecuencia frecuencia = lista_Frecuencias.get(i);
+            datos.setValue(frecuencia.getFrecuencia(),"Top Especialidad",frecuencia.getDato());
+        }
+        
+        JFreeChart grafico_Barras = ChartFactory.createBarChart3D(
+                "Top 5 Especialidades", //Nombre del grafico
+                "Especialidades", //Nombre de las barras o columnas
+                "Frecuencia", // Nombre de la numeracion
+                datos, // Datos que tendra el grafico
+                PlotOrientation.VERTICAL, //Orientacion del grafico
+                true,
+                true,
+                false
+        );
+        panel.setChart(grafico_Barras);
     }
     
     private void generarEstructuraDoctores() {
@@ -139,8 +209,13 @@ public class Panel_Reportes extends javax.swing.JPanel{
     }
 
     private void cargarDatosProductos() {
-        // Aquí debes cargar los datos de tu lista de productos en la tabla
+        // Aquí se cargan los datos de la lista de productos en la tabla
         // Similar al método cargarDatosDoctores, pero para la lista de productos
+        
+        for( Producto producto: lista_Productos ){
+            model.addRow(new Object[]{producto.getId_Producto(), producto.getNombre(),
+                producto.getCantidad(), producto.getDescripcion(), producto.getPrecio()});
+        }
     }
     
 }

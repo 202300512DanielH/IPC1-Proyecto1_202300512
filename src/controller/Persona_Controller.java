@@ -2,9 +2,13 @@
 package controller;
 
 import Models.Doctor;
+import Models.Frecuencia;
 import Models.Paciente;
 import java.util.ArrayList;
 import Models.Persona;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class Persona_Controller {
@@ -154,6 +158,45 @@ public class Persona_Controller {
             String especialidad = especialidades[i % especialidades.length]; // Obtener una especialidad diferente para cada doctor
             lista_Doctores.add(new Doctor(codigo, nombres[i], "---", "123", "Masculino", 20, "Doctor", especialidad, 123456));
         }
+    }
+    
+    public ArrayList<Frecuencia> registrarFrecuenciaEspecialidad() {
+        // Lista para almacenar las frecuencias de las especialidades
+        ArrayList<Frecuencia> frecuencias = new ArrayList<>();
+        // Iterar sobre la lista de doctores
+        for (Doctor doctor : lista_Doctores) {
+            boolean encontrada = false;
+            // Buscar si ya existe la especialidad en la lista de frecuencias
+            for (Frecuencia frecuencia : frecuencias) {
+                if (frecuencia.getDato().equals(doctor.getEspecialidad())) {
+                    // Si la especialidad ya está en la lista, incrementar su frecuencia
+                    frecuencia.incrementarFrecuencia();
+                    encontrada = true;
+                    break;
+                }
+            }
+            // Si la especialidad no está en la lista, agregarla con frecuencia 1
+            if (!encontrada) {
+                frecuencias.add(new Frecuencia(doctor.getEspecialidad(), 1));
+            }
+        }
+        ordenarFrecuenciasDescendente(frecuencias);
+        // Devolver la lista de frecuencias
+        return frecuencias;
+    }
+
+    public void ordenarFrecuenciasDescendente(ArrayList<Frecuencia> frecuencias) {
+        // Definir un comparador personalizado para ordenar las frecuencias por valor de manera descendente
+        Comparator<Frecuencia> comparador = new Comparator<Frecuencia>() {
+            @Override
+            public int compare(Frecuencia f1, Frecuencia f2) {
+                // Ordenar de manera descendente por valor de frecuencia
+                return Integer.compare(f2.getFrecuencia(), f1.getFrecuencia());
+            }
+        };
+
+        // Ordenar la lista de frecuencias usando el comparador
+        Collections.sort(frecuencias, comparador);
     }
     
     public ArrayList<Doctor> get_Lista_Doctores(){

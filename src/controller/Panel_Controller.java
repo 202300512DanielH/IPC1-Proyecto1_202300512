@@ -6,6 +6,7 @@ import Panel.Panel_Menu_Administrador;
 import Panel.Panel_Registrarse;
 import Panel.administrador.Panel_Control_Doctores;
 import Panel.administrador.Panel_Control_Pacientes;
+import Panel.administrador.Panel_Control_Producto;
 import Panel.administrador.Panel_Reportes;
 import System.Main;
 import View.Ventana_Base;
@@ -52,6 +53,11 @@ public class Panel_Controller {
     public Panel_Control_Pacientes get_Panel_Control_Pacientes(){
         Panel_Control_Pacientes panel_Con_Pa = new Panel_Control_Pacientes();
         return panel_Con_Pa;
+    }
+    
+    public Panel_Control_Producto get_Panel_Control_Producto(){
+        Panel_Control_Producto panel = new Panel_Control_Producto();
+        return panel;
     }
         
 }
