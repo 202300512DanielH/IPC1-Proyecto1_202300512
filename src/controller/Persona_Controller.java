@@ -55,7 +55,7 @@ public class Persona_Controller {
         codigo = codigo + 1;
         Paciente paciente_Nuevo = new Paciente(codigo, nombres, apellidos, password, sexo, edad, "Paciente");
         lista_Pacientes.add(paciente_Nuevo);
-        JOptionPane.showMessageDialog(null, "Su código de inición es:"+"\n"+codigo);        
+        JOptionPane.showMessageDialog(null, "Su código de inicio es:"+"\n"+codigo);        
         return null;
     }
     
@@ -124,7 +124,40 @@ public class Persona_Controller {
         }
     }
     
-    public void primer_Doctor(){
-        lista_Doctores.add(new Doctor(0,"Doctor1","---","123","Masculino",20,"Doctor","Cirujano",123456));
+    public void actualizar_Paciente(int codigo_Unico, String nombres, String apellidos, String password, int edad, String sexo){
+        for(int i = 0; i < lista_Pacientes.size(); i++){
+            Paciente paciente = lista_Pacientes.get(i);
+            if(paciente.getid() == codigo_Unico){
+                paciente.setNombre(nombres);
+                paciente.setApellido(apellidos);
+                paciente.setContraseña(password);
+                paciente.setEdad(edad);
+                paciente.setSexo(sexo);
+                lista_Pacientes.set(i, paciente);
+                break; // Termina el ciclo una vez que se actualiza el doctor
+            }
+        }
     }
+    
+    public void primer_Doctor(){
+        lista_Doctores.add(new Doctor(codigo,"Doctor1","---","123","Masculino",20,"Doctor","Cirujano",123456));
+    }
+    
+    public void agregarDoctores() {
+        String[] nombres = {"Doctor1", "Doctor2", "Doctor3", "Doctor4", "Doctor5", "Doctor6", "Doctor7", "Doctor8", "Doctor9", "Doctor10",
+                            "Doctor11", "Doctor12", "Doctor13", "Doctor14", "Doctor15", "Doctor16", "Doctor17", "Doctor18", "Doctor19", "Doctor20"};
+        String[] especialidades = {"Cirujano", "Odontólogo", "Cardiólogo", "Pediatra", "Dermatólogo", "Neurólogo", "Oncólogo", "Ginecólogo", "Psiquiatra", "Traumatólogo",
+                                   "Endocrinólogo", "Oftalmólogo", "Urologo", "Radiólogo", "Otorrinolaringólogo", "Nefrólogo", "Hematólogo", "Reumatólogo", "Geriatra", "Nutricionista"};
+
+        for (int i = 0; i < nombres.length; i++) {
+            codigo = codigo + 1;
+            String especialidad = especialidades[i % especialidades.length]; // Obtener una especialidad diferente para cada doctor
+            lista_Doctores.add(new Doctor(codigo, nombres[i], "---", "123", "Masculino", 20, "Doctor", especialidad, 123456));
+        }
+    }
+    
+    public ArrayList<Doctor> get_Lista_Doctores(){
+        return lista_Doctores;
+    }
+    
 }

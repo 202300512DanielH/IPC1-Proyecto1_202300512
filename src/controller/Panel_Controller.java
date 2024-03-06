@@ -5,6 +5,8 @@ import Panel.Panel_Login;
 import Panel.Panel_Menu_Administrador;
 import Panel.Panel_Registrarse;
 import Panel.administrador.Panel_Control_Doctores;
+import Panel.administrador.Panel_Control_Pacientes;
+import Panel.administrador.Panel_Reportes;
 import System.Main;
 import View.Ventana_Base;
 
@@ -40,6 +42,16 @@ public class Panel_Controller {
     public Panel_Control_Doctores get_Panel_Control_Doctores(){
         Panel_Control_Doctores panel_Control_Doc = new Panel_Control_Doctores();
         return panel_Control_Doc;
+    }
+    
+    public Panel_Reportes get_Panel_Reportes(){
+        Panel_Reportes panel_Rep = new Panel_Reportes();
+        return panel_Rep;
+    }
+    
+    public Panel_Control_Pacientes get_Panel_Control_Pacientes(){
+        Panel_Control_Pacientes panel_Con_Pa = new Panel_Control_Pacientes();
+        return panel_Con_Pa;
     }
         
 }

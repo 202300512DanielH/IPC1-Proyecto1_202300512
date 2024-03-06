@@ -108,7 +108,9 @@ public class Panel_Menu_Administrador extends javax.swing.JPanel{
     }
     
     private void btn_Administrar_PacientesActionPerformed(java.awt.event.ActionEvent evt) {
-        // Lógica para administrar pacientes
+        Panel_Controller panel_Controller = new Panel_Controller();
+        panelFind = panel_Controller.get_Panel_Control_Pacientes();
+        panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
     }
     
     private void btn_Administrar_ProductosActionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +119,9 @@ public class Panel_Menu_Administrador extends javax.swing.JPanel{
     
     private void btn_ReportesActionPerformed(java.awt.event.ActionEvent evt) {
         // Lógica para generar reportes
+        Panel_Controller panel_Controller = new Panel_Controller();
+        panelFind = panel_Controller.get_Panel_Reportes();
+        panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
     }
     
     private void btn_Cerrar_SesionActionPerformed(java.awt.event.ActionEvent evt) {
