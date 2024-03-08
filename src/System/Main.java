@@ -13,6 +13,7 @@ static Productos_Controller producto_Controller = new Productos_Controller();
     public static void main(String[] args) {
         persona_COntroller.agregarDoctores();
         producto_Controller.crearProductos();
+        persona_COntroller.agregarPacientes();
         ventana_Base.setVisible(true);
         ventana_Base.setLocationRelativeTo(null);
     }

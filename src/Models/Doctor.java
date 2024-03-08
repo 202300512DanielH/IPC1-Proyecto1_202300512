@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Doctor extends Persona {
     private String especialidad;
     private int telefono;
-    private ArrayList<Cita> citas;
+    public ArrayList<Cita> citas;
     private ArrayList<String> horarios;
     
     // Constructor
@@ -14,13 +14,13 @@ public class Doctor extends Persona {
         super(codigo, nombre, apellido, contraseña, sexo, edad, rol);
         this.especialidad = especialidad;
         this.telefono = telefono;
-        citas = new ArrayList<>();
-        horarios = new ArrayList<>();
+        this.citas = new ArrayList<>();
+        this.horarios = new ArrayList<>();
     }
 
     // Métodos para agregar y obtener citas
     public void agregarCita(Cita cita) {
-        citas.add(cita);
+        this.citas.add(cita);
     }
 
     public ArrayList<Cita> getCitas() {
@@ -29,7 +29,7 @@ public class Doctor extends Persona {
 
     // Métodos para agregar y obtener horarios
     public void agregarHorario(String horario) {
-        horarios.add(horario);
+        this.horarios.add(horario);
     }
 
     public ArrayList<String> getHorarios() {

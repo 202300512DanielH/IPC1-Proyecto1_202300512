@@ -110,4 +110,5 @@ public class Panel_Login extends javax.swing.JPanel{
         panelFind = panel_Controller.get_Panel_Registrarse();
         panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
     }
+    
 }

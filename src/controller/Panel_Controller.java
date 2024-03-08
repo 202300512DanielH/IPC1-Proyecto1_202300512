@@ -8,6 +8,12 @@ import Panel.administrador.Panel_Control_Doctores;
 import Panel.administrador.Panel_Control_Pacientes;
 import Panel.administrador.Panel_Control_Producto;
 import Panel.administrador.Panel_Reportes;
+import Panel.doctor.Panel_Citas_Doctor;
+import Panel.doctor.Panel_Menu_Doctor;
+import Panel.doctor.Panel_Perfil_Doctor;
+import Panel.paciente.Panel_Menu_Paciente;
+import Panel.paciente.Panel_Crear_Citas;
+import Panel.paciente.Panel_Perfil;
 import System.Main;
 import View.Ventana_Base;
 
@@ -59,5 +65,34 @@ public class Panel_Controller {
         Panel_Control_Producto panel = new Panel_Control_Producto();
         return panel;
     }
-        
+    
+    public Panel_Menu_Paciente get_Panel_Menu_Paciente(){
+        Panel_Menu_Paciente panel = new Panel_Menu_Paciente();
+        return panel;
+    }
+    
+    public Panel_Crear_Citas get_Panel_Crear_Citas(){
+        Panel_Crear_Citas panel = new Panel_Crear_Citas();
+        return panel;
+    }
+    
+    public Panel_Perfil get_Panel_Perfil(){
+        Panel_Perfil panel = new Panel_Perfil();
+        return panel;
+    }
+    
+    public Panel_Menu_Doctor get_Panel_Menu_Doctor(){
+        Panel_Menu_Doctor panel = new Panel_Menu_Doctor();
+        return panel;
+    }
+    
+    public Panel_Perfil_Doctor get_Panel_Perfil_Doctor(){
+        Panel_Perfil_Doctor panel = new Panel_Perfil_Doctor();
+        return panel;
+    }
+    
+    public Panel_Citas_Doctor get_Panel_Citas_Doc(){
+        Panel_Citas_Doctor panel = new Panel_Citas_Doctor();
+        return panel;
+    }
 }

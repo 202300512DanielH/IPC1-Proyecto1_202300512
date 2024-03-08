@@ -210,18 +210,18 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
     private void btn_ActualizarActionPerformed(java.awt.event.ActionEvent evt){
         // Mostrar un cuadro de diálogo de entrada para que el usuario ingrese un código
         try{
-            codigo = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el código del doctor a actualizar:", "Código Doctor", JOptionPane.PLAIN_MESSAGE));
+            codigo = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el código del paciente a actualizar:", "Código paciente", JOptionPane.PLAIN_MESSAGE));
             Persona_Controller persona_Controller = new Persona_Controller();
-            Paciente doctor_Encontrado = (Paciente)persona_Controller.buscar_Persona(codigo,"Paciente");
-            if (doctor_Encontrado != null){
-                txt_Nombres.setText(doctor_Encontrado.getNombre());
-                txt_Apellidos.setText(doctor_Encontrado.getApellido());
-                txt_Password.setText(doctor_Encontrado.getContraseña());
-                txt_Edad.setText(String.valueOf(doctor_Encontrado.getEdad()));
-                cmb_Genero.setSelectedItem(doctor_Encontrado.getSexo());
+            Paciente paciente_Encontrado = (Paciente)persona_Controller.buscar_Persona(codigo,"Paciente");
+            if (paciente_Encontrado != null){
+                txt_Nombres.setText(paciente_Encontrado.getNombre());
+                txt_Apellidos.setText(paciente_Encontrado.getApellido());
+                txt_Password.setText(paciente_Encontrado.getContraseña());
+                txt_Edad.setText(String.valueOf(paciente_Encontrado.getEdad()));
+                cmb_Genero.setSelectedItem(paciente_Encontrado.getSexo());
                 uso_Boton(false);
             }else{
-                JOptionPane.showMessageDialog(null, "Doctor no encontrado o no existe");
+                JOptionPane.showMessageDialog(null, "paciente no encontrado o no existe");
             }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "El codigo proporcionado debe ser numeros enteros");
@@ -266,7 +266,7 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
     }
     
     private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt){
-        codigo = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el código del doctor a eliminar:", "Código Doctor", JOptionPane.PLAIN_MESSAGE));
+        codigo = Integer.parseInt(JOptionPane.showInputDialog(this, "Ingrese el código del paciente a eliminar:", "Código paciente", JOptionPane.PLAIN_MESSAGE));
         Persona_Controller persona_Controller = new Persona_Controller();
         boolean resultado = persona_Controller.eliminar_Persona(codigo, "Paciente");
         if(resultado){

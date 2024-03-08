@@ -1,6 +1,7 @@
 
 package controller;
 
+import Models.Cita;
 import Models.Doctor;
 import Models.Frecuencia;
 import Models.Paciente;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import Models.Persona;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 public class Persona_Controller {
@@ -37,8 +37,9 @@ public class Persona_Controller {
             if (persona.getid() == codigo && persona.getContraseña().equals(password)){
                 id_Persona_Logueada = persona.getid();
                 rol_Persona_Logueada = persona.getRol();
+                cambioPanel = panel_Control.get_Panel_Menu_Paciente();
                 JOptionPane.showMessageDialog(null, "Se ha iniciado Sesion");
-                return null;
+                return cambioPanel;
             }
         }
         
@@ -48,7 +49,8 @@ public class Persona_Controller {
                 id_Persona_Logueada = persona.getid();
                 rol_Persona_Logueada = persona.getRol();
                 JOptionPane.showMessageDialog(null, "Se ha iniciado Sesion");
-                return null;
+                cambioPanel = panel_Control.get_Panel_Menu_Doctor();
+                return cambioPanel;
             }
         }
         JOptionPane.showMessageDialog(null,"Contraseña o codigo incorrecto");
@@ -158,6 +160,35 @@ public class Persona_Controller {
             String especialidad = especialidades[i % especialidades.length]; // Obtener una especialidad diferente para cada doctor
             lista_Doctores.add(new Doctor(codigo, nombres[i], "---", "123", "Masculino", 20, "Doctor", especialidad, 123456));
         }
+        
+        agregarHorariosADoctores();
+    }
+    
+    public void agregarHorariosADoctores() {
+        // Lista de horarios
+        ArrayList<String> horarios = new ArrayList<>();
+        horarios.add("8:00");
+        horarios.add("13:00");
+        horarios.add("16:00");
+
+        // Recorrer la lista de doctores y asignar los horarios
+        for (Doctor doctor : lista_Doctores) {
+            for (String horario : horarios) {
+                doctor.agregarHorario(horario);
+            }
+        }
+    }
+    
+    public void agregarPacientes() {
+        String[] nombres = {"Paciente1", "Paciente2", "Paciente3", "Paciente4", "Paciente5",
+                            "Paciente6", "Paciente7", "Paciente8", "Paciente9", "Paciente10"};
+        int[] edades = {20, 15, 30, 45};
+        for (int i = 0; i < 10; i++) {
+            codigo++;
+            String nombre = nombres[i % nombres.length];
+            int edad = edades[i % edades.length];
+            lista_Pacientes.add(new Paciente(codigo, nombre, "---", "123", "Masculino", edad, "Paciente"));
+        }
     }
     
     public ArrayList<Frecuencia> registrarFrecuenciaEspecialidad() {
@@ -199,8 +230,68 @@ public class Persona_Controller {
         Collections.sort(frecuencias, comparador);
     }
     
+    public ArrayList<Doctor> buscar_Doctor_Especialidad(String especialidad) {
+        ArrayList<Doctor> doctoresEncontrados = new ArrayList<>();
+        for (Doctor doctor : lista_Doctores) {
+            if (doctor.getEspecialidad().equalsIgnoreCase(especialidad)) {
+                doctoresEncontrados.add(doctor);
+            }
+        }
+        return doctoresEncontrados;
+    }
+    
     public ArrayList<Doctor> get_Lista_Doctores(){
         return lista_Doctores;
     }
     
+    public int get_id_Persona_Logueada(){
+        return id_Persona_Logueada;
+    }
+    
+    public void asignar_Cita(Cita cita_Nueva){
+        int contador = 0;
+        for( Doctor doctor: lista_Doctores ){
+            if(doctor.getid() == cita_Nueva.getId_Doctor()){
+                lista_Doctores.get(contador).agregarCita(cita_Nueva);
+            }
+            contador ++;
+        }
+        contador = 0;
+        for( Paciente paciente: lista_Pacientes ){
+            if( paciente.getid() == cita_Nueva.getId_Paciente() ){
+                lista_Pacientes.get(contador).agregarCita(cita_Nueva);
+            }
+            contador ++;
+        }
+    }
+    
+    public void cambiar_Estado_Cita(String estado_Nuevo, int id_Doctor, int id_Paciente, int id_Cita){
+        Cita_Controller cita_Controller = new Cita_Controller();
+        
+        for(Doctor doctor: lista_Doctores){
+            if(doctor.getid() == id_Doctor){
+                doctor.citas = cita_Controller.actualizar_Lista_Citas(id_Cita, doctor.getCitas(), estado_Nuevo, "Doctor");
+                break;
+            }
+            
+        }
+        
+        for(Paciente paciente: lista_Pacientes){
+            if(paciente.getid() == id_Paciente){
+                paciente.citas = cita_Controller.actualizar_Lista_Citas(id_Cita, paciente.getCitas(), estado_Nuevo, "Paciente");
+            }
+            break;
+        }
+    }
+    
+    public void agregar_Horario(String horario){
+        int id_Doc = get_id_Persona_Logueada();
+        int contador = 0;
+        for(Doctor doctor: lista_Doctores){
+            if(doctor.getid() == id_Doc){
+                lista_Doctores.get(contador).agregarHorario(horario);
+            }
+            contador++;
+        }
+    }
 }
