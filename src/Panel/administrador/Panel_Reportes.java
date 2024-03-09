@@ -3,6 +3,7 @@ package Panel.administrador;
 
 import Models.Doctor;
 import Models.Frecuencia;
+import Models.Paciente;
 import Models.Producto;
 import controller.Panel_Controller;
 import controller.Persona_Controller;
@@ -17,15 +18,14 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Panel_Reportes extends javax.swing.JPanel{
     
-    private javax.swing.JPanel panelFind = null;
-    private javax.swing.JLabel titulo;
-    private javax.swing.JButton btn_Regresar;
     private javax.swing.JButton btn_Doctores;
+    private javax.swing.JButton btn_Pacientes;
     private javax.swing.JButton btn_Productos;
     private DefaultTableModel model = new DefaultTableModel();
     public javax.swing.JTable tbl_Base;
     private javax.swing.JScrollPane jScrollPane1;
     private ArrayList<Doctor> lista_Doctores = new ArrayList<Doctor>();
+    private ArrayList<Paciente> lista_Pacientes = new ArrayList<Paciente>();
     private ArrayList<Producto> lista_Productos = new ArrayList<Producto>();
     private Persona_Controller persona_Controller = new Persona_Controller();
     private Productos_Controller productos_Controller = new Productos_Controller();
@@ -42,39 +42,22 @@ public class Panel_Reportes extends javax.swing.JPanel{
         setLayout(null);
         lista_Doctores = persona_Controller.get_Lista_Doctores();
         lista_Productos = productos_Controller.get_Lista_Productos();
-        titulo = new javax.swing.JLabel();
-        btn_Regresar = new javax.swing.JButton();
+        lista_Pacientes = persona_Controller.get_Lista_Pacietes();
         btn_Doctores = new javax.swing.JButton();
+        btn_Pacientes = new javax.swing.JButton();
         btn_Productos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_Base = new javax.swing.JTable();
         
         panel = new ChartPanel(null);
         panel.setMouseWheelEnabled(true);
-        panel.setBounds(50, 300, 700, 280);
+        panel.setBounds(25, 175, 650, 250);
         this.add(panel);
-        
-        titulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
-        titulo.setForeground(new java.awt.Color(0, 0, 0));
-        titulo.setText("Reportes - Administrador");
-        titulo.setBounds(300, 50, 300, 30);
-        this.add(titulo);
-        
-        btn_Regresar.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btn_Regresar.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Regresar.setText("Regresar");
-        btn_Regresar.setBounds(550, 600, 150, 30);
-        btn_Regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_RegresarActionPerformed(evt);
-            }
-        });        
-        this.add(btn_Regresar);
         
         btn_Doctores.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Doctores.setForeground(new java.awt.Color(0, 0, 0));
         btn_Doctores.setText("Doctores");
-        btn_Doctores.setBounds(50, 120, 150, 30);
+        btn_Doctores.setBounds(50, 25, 150, 30);
         btn_Doctores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_DoctoresActionPerformed(evt);
@@ -83,10 +66,21 @@ public class Panel_Reportes extends javax.swing.JPanel{
         
         this.add(btn_Doctores);
         
+        btn_Pacientes.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        btn_Pacientes.setForeground(new java.awt.Color(0, 0, 0));
+        btn_Pacientes.setText("Pacientes");
+        btn_Pacientes.setBounds(220, 25, 150, 30);
+        btn_Pacientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_PacientesActionPerformed(evt);
+            }
+        });
+        this.add(btn_Pacientes);
+        
         btn_Productos.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Productos.setForeground(new java.awt.Color(0, 0, 0));
         btn_Productos.setText("Productos");
-        btn_Productos.setBounds(220, 120, 150, 30);
+        btn_Productos.setBounds(390, 25, 150, 30);
         btn_Productos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ProductosActionPerformed(evt);
@@ -99,10 +93,10 @@ public class Panel_Reportes extends javax.swing.JPanel{
         tbl_Base.setEnabled(false);
         jScrollPane1.setViewportView(tbl_Base);
         
-        int x = 50;
-        int y = 170;
-        int width = 700;
-        int height = 120;
+        int x = 25;
+        int y = 70;
+        int width = 650;
+        int height = 100;
         
         // Establecer la posición y tamaño del JScrollPane
         jScrollPane1.setBounds(x, y, width, height);
@@ -113,16 +107,6 @@ public class Panel_Reportes extends javax.swing.JPanel{
         setBackground(new java.awt.Color(171,255,213));
     }
     
-    private void regresar(){
-        Panel_Controller panel_Controller = new Panel_Controller();
-        panelFind = panel_Controller.get_Panel_Menu_Administrador();
-        panel_Controller.get_Ventana_Base().cambiarPaneles(panelFind);
-    }
-    
-    private void btn_RegresarActionPerformed(java.awt.event.ActionEvent evt) {
-        regresar();
-    }
-    
     private void btn_DoctoresActionPerformed(java.awt.event.ActionEvent evt) {
         // Generar estructura de tabla para doctores
         model.setRowCount(0);
@@ -130,6 +114,7 @@ public class Panel_Reportes extends javax.swing.JPanel{
         // Cargar datos de la lista de doctores en la tabla
         cargarDatosDoctores();
         generar_Grafica_Doctores();
+        cambiar_Visibilidad(true);
     }
     
     private void btn_ProductosActionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +123,7 @@ public class Panel_Reportes extends javax.swing.JPanel{
         //Cargar datos de la lista de products en la tabla
         cargarDatosProductos();
         generar_Grafica_Producos();
+        cambiar_Visibilidad(true);
     }
     
     
@@ -200,6 +186,10 @@ public class Panel_Reportes extends javax.swing.JPanel{
                 doctor.getSexo(), doctor.getEdad(), doctor.getEspecialidad(), doctor.getTelefono()});
         }
     }
+    
+    private void cambiar_Visibilidad(boolean dato){
+        panel.setVisible(dato);
+    }
 
     private void generarEstructuraProductos() {
         model.setColumnIdentifiers(new Object[]{"Código", "Nombre", "Cantidad", "Descripción", "Precio"});
@@ -216,4 +206,27 @@ public class Panel_Reportes extends javax.swing.JPanel{
         }
     }
     
+    private void btn_PacientesActionPerformed(java.awt.event.ActionEvent evt){
+        // Generar estructura de tabla para doctores
+        model.setRowCount(0);
+        generar_Estructura_Pacientes();
+        // Cargar datos de la lista de doctores en la tabla
+        cargar_Datos_Pacientes();
+        cambiar_Visibilidad(false);
+    }
+    
+    private void generar_Estructura_Pacientes(){
+        model.setColumnIdentifiers(new Object[]{"Código", "Nombre Completo", "Género", "Edad"});
+        tbl_Base.setModel(model);
+    }
+    
+    private void cargar_Datos_Pacientes(){
+        // Aquí se cargan los datos de la lista de doctores en la tabla
+        // Recorre la lista de doctores y agrega cada doctor como una fila en la tabla
+        
+        for (Paciente paciente : lista_Pacientes) {
+            model.addRow(new Object[]{paciente.getid(), paciente.getNombre()+ " " +paciente.getApellido(),
+                paciente.getSexo(), paciente.getEdad()});
+        }
+    }
 }

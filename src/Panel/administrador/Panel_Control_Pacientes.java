@@ -21,7 +21,6 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
     private javax.swing.JTextField txt_Password;
     private javax.swing.JComboBox<String> cmb_Genero;
     private javax.swing.JTextField txt_Edad;
-    private javax.swing.JButton btn_Regresar;
     private javax.swing.JButton btn_Registrarse;
     private javax.swing.JButton btn_Actualizar;
     private javax.swing.JButton btn_Eliminar;
@@ -47,7 +46,6 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
         txt_Password = new javax.swing.JPasswordField();
         cmb_Genero = new javax.swing.JComboBox<>();
         txt_Edad = new javax.swing.JTextField();
-        btn_Regresar = new javax.swing.JButton();
         btn_Registrarse = new javax.swing.JButton();
         btn_Actualizar = new javax.swing.JButton();
         btn_Eliminar = new javax.swing.JButton();
@@ -56,71 +54,60 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
         
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
         titulo.setForeground(new java.awt.Color(0, 0, 0));
-        titulo.setText("Acciones Pacientes - Administrador");
-        titulo.setBounds(250, 50, 320, 30);
+        titulo.setText("Acciones Pacientes");
+        titulo.setBounds(250, 25, 320, 30);
         this.add(titulo);
         
         lbl_Nombres.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Nombres.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Nombres.setText("Nombres:");
-        lbl_Nombres.setBounds(250, 150, 80, 25);
+        lbl_Nombres.setBounds(50, 100, 80, 25);
         this.add(lbl_Nombres);
         
         lbl_Apellidos.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Apellidos.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Apellidos.setText("Apellidos:");
-        lbl_Apellidos.setBounds(250, 200, 80, 25);
+        lbl_Apellidos.setBounds(50, 150, 80, 25);
         this.add(lbl_Apellidos);
         
         lbl_Password.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Password.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Password.setText("Contraseña:");
-        lbl_Password.setBounds(250, 250, 80, 25);
+        lbl_Password.setBounds(50, 200, 80, 25);
         this.add(lbl_Password);
         
         lbl_Genero.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Genero.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Genero.setText("Género:");
-        lbl_Genero.setBounds(250, 300, 80, 25);
+        lbl_Genero.setBounds(380, 100, 80, 25);
         this.add(lbl_Genero);
         
         lbl_Edad.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Edad.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Edad.setText("Edad:");
-        lbl_Edad.setBounds(250, 350, 80, 25);
+        lbl_Edad.setBounds(380, 150, 80, 25);
         this.add(lbl_Edad);
         
-        txt_Nombres.setBounds(350, 150, 200, 25);
+        txt_Nombres.setBounds(150, 100, 200, 25);
         this.add(txt_Nombres);
         
-        txt_Apellidos.setBounds(350, 200, 200, 25);
+        txt_Apellidos.setBounds(150, 150, 200, 25);
         this.add(txt_Apellidos);
         
-        txt_Password.setBounds(350, 250, 200, 25);
+        txt_Password.setBounds(150, 200, 200, 25);
         this.add(txt_Password);
         
         cmb_Genero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
-        cmb_Genero.setBounds(350, 300, 200, 25);
+        cmb_Genero.setBounds(450, 100, 200, 25);
         this.add(cmb_Genero);
         
-        txt_Edad.setBounds(350, 350, 200, 25);
+        txt_Edad.setBounds(450, 150, 200, 25);
         this.add(txt_Edad);
-        
-        btn_Regresar.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btn_Regresar.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Regresar.setText("Regresar");
-        btn_Regresar.setBounds(550, 600, 150, 30);
-        btn_Regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_RegresarActionPerformed(evt);
-            }
-        });
-        this.add(btn_Regresar);
         
         btn_Registrarse.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Registrarse.setForeground(new java.awt.Color(0, 0, 0));
         btn_Registrarse.setText("Crear Cuenta");
-        btn_Registrarse.setBounds(50, 500, 150, 30);
+        btn_Registrarse.setBounds(50, 350, 150, 30);
         btn_Registrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_RegistrarseActionPerformed(evt);
@@ -131,7 +118,7 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
         btn_Actualizar.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Actualizar.setForeground(new java.awt.Color(0, 0, 0));
         btn_Actualizar.setText("Actualizar");
-        btn_Actualizar.setBounds(220, 500, 150, 30);
+        btn_Actualizar.setBounds(220, 350, 150, 30);
         btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ActualizarActionPerformed(evt);
@@ -142,7 +129,7 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
         btn_Eliminar.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Eliminar.setForeground(new java.awt.Color(0, 0, 0));
         btn_Eliminar.setText("Eliminar");
-        btn_Eliminar.setBounds(390, 500, 150, 30);
+        btn_Eliminar.setBounds(390, 350, 150, 30);
         btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_EliminarActionPerformed(evt);
@@ -151,9 +138,8 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
         this.add(btn_Eliminar);
         
         btn_Aceptar_Cambios.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btn_Aceptar_Cambios.setForeground(new java.awt.Color(0, 0, 0));
         btn_Aceptar_Cambios.setText("Actualizar");
-        btn_Aceptar_Cambios.setBounds(50, 450, 150, 30);
+        btn_Aceptar_Cambios.setBounds(50, 300, 150, 30);
         btn_Aceptar_Cambios.setBackground(new java.awt.Color(0, 153, 51)); // Color rojo
         btn_Aceptar_Cambios.setVisible(false);
         btn_Aceptar_Cambios.addActionListener(new java.awt.event.ActionListener() {
@@ -164,9 +150,8 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
         this.add(btn_Aceptar_Cambios);
         
         btn_Cancelar_Cambios.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btn_Cancelar_Cambios.setForeground(new java.awt.Color(0, 0, 0));
         btn_Cancelar_Cambios.setText("Cancelar");
-        btn_Cancelar_Cambios.setBounds(220, 450, 150, 30);
+        btn_Cancelar_Cambios.setBounds(220, 300, 150, 30);
         btn_Cancelar_Cambios.setBackground(new java.awt.Color(255, 0, 0)); // Color azul
         btn_Cancelar_Cambios.setVisible(false);
         btn_Cancelar_Cambios.addActionListener(new java.awt.event.ActionListener() {
@@ -195,10 +180,6 @@ public class Panel_Control_Pacientes extends javax.swing.JPanel{
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "La edad debe ser numeros enteros");            
         }
-    }
-    
-    private void btn_RegresarActionPerformed(java.awt.event.ActionEvent evt) {
-        regresar();
     }
     
     private void regresar(){

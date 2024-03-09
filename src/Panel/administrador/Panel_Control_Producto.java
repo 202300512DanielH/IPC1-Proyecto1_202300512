@@ -19,7 +19,6 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
     private javax.swing.JTextField txt_Precio;
     private javax.swing.JTextField txt_Descripcion;
     private javax.swing.JTextField txt_Cantidad;
-    private javax.swing.JButton btn_Regresar;
     private javax.swing.JButton btn_Crear_Producto;
     private javax.swing.JButton btn_Actualizar;
     private javax.swing.JButton btn_Eliminar;
@@ -42,7 +41,6 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
         txt_Precio = new javax.swing.JTextField();
         txt_Descripcion = new javax.swing.JTextField();
         txt_Cantidad = new javax.swing.JTextField();
-        btn_Regresar = new javax.swing.JButton();
         btn_Crear_Producto = new javax.swing.JButton();
         btn_Actualizar = new javax.swing.JButton();
         btn_Eliminar = new javax.swing.JButton();
@@ -51,61 +49,50 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
 
         titulo.setFont(new java.awt.Font("Segoe UI", 1, 18));
         titulo.setForeground(new java.awt.Color(0, 0, 0));
-        titulo.setText("Acciones Productos - Administrador");
+        titulo.setText("Acciones Productos");
         titulo.setBounds(250, 50, 320, 30);
         this.add(titulo);
 
         lbl_Nombre.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Nombre.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Nombre.setText("Nombre:");
-        lbl_Nombre.setBounds(250, 150, 80, 25);
+        lbl_Nombre.setBounds(50, 100, 80, 25);
         this.add(lbl_Nombre);
 
         lbl_Precio.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Precio.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Precio.setText("Precio:");
-        lbl_Precio.setBounds(250, 200, 80, 25);
+        lbl_Precio.setBounds(50, 150, 80, 25);
         this.add(lbl_Precio);
 
         lbl_Descripcion.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Descripcion.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Descripcion.setText("Descripción:");
-        lbl_Descripcion.setBounds(250, 250, 80, 25);
+        lbl_Descripcion.setBounds(50, 200, 80, 25);
         this.add(lbl_Descripcion);
 
         lbl_Cantidad.setFont(new java.awt.Font("Segoe UI", 0, 14));
         lbl_Cantidad.setForeground(new java.awt.Color(0, 0, 0));
         lbl_Cantidad.setText("Cantidad:");
-        lbl_Cantidad.setBounds(250, 300, 80, 25);
+        lbl_Cantidad.setBounds(380, 100, 80, 25);
         this.add(lbl_Cantidad);
 
-        txt_Nombre.setBounds(350, 150, 200, 25);
+        txt_Nombre.setBounds(150, 100, 200, 25);
         this.add(txt_Nombre);
 
-        txt_Precio.setBounds(350, 200, 200, 25);
+        txt_Precio.setBounds(150, 150, 200, 25);
         this.add(txt_Precio);
 
-        txt_Descripcion.setBounds(350, 250, 200, 25);
+        txt_Descripcion.setBounds(150, 200, 200, 25);
         this.add(txt_Descripcion);
 
-        txt_Cantidad.setBounds(350, 300, 200, 25);
+        txt_Cantidad.setBounds(450, 100, 200, 25);
         this.add(txt_Cantidad);
-
-        btn_Regresar.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btn_Regresar.setForeground(new java.awt.Color(0, 0, 0));
-        btn_Regresar.setText("Regresar");
-        btn_Regresar.setBounds(550, 600, 150, 30);
-        btn_Regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_RegresarActionPerformed(evt);
-            }
-        });
-        this.add(btn_Regresar);
 
         btn_Crear_Producto.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Crear_Producto.setForeground(new java.awt.Color(0, 0, 0));
         btn_Crear_Producto.setText("Crear Producto");
-        btn_Crear_Producto.setBounds(50, 500, 150, 30);
+        btn_Crear_Producto.setBounds(50, 350, 150, 30);
         btn_Crear_Producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_Crear_ProductoActionPerformed(evt);
@@ -116,7 +103,7 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
         btn_Actualizar.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Actualizar.setForeground(new java.awt.Color(0, 0, 0));
         btn_Actualizar.setText("Actualizar");
-        btn_Actualizar.setBounds(220, 500, 150, 30);
+        btn_Actualizar.setBounds(220, 350, 150, 30);
         btn_Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ActualizarActionPerformed(evt);
@@ -127,7 +114,7 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
         btn_Eliminar.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Eliminar.setForeground(new java.awt.Color(0, 0, 0));
         btn_Eliminar.setText("Eliminar");
-        btn_Eliminar.setBounds(390, 500, 150, 30);
+        btn_Eliminar.setBounds(390, 350, 150, 30);
         btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_EliminarActionPerformed(evt);
@@ -136,9 +123,8 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
         this.add(btn_Eliminar);
 
         btn_Aceptar_Cambios.setFont(new java.awt.Font("Segoe UI", 1, 14));
-        btn_Aceptar_Cambios.setForeground(new java.awt.Color(0, 0, 0));
         btn_Aceptar_Cambios.setText("Aceptar");
-        btn_Aceptar_Cambios.setBounds(50, 450, 150, 30);
+        btn_Aceptar_Cambios.setBounds(50, 300, 150, 30);
         btn_Aceptar_Cambios.setBackground(new java.awt.Color(0, 153, 51)); // Color rojo
         btn_Aceptar_Cambios.setVisible(false);
         btn_Aceptar_Cambios.addActionListener(new java.awt.event.ActionListener() {
@@ -151,7 +137,7 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
         btn_Cancelar_Cambios.setFont(new java.awt.Font("Segoe UI", 1, 14));
         btn_Cancelar_Cambios.setForeground(new java.awt.Color(0, 0, 0));
         btn_Cancelar_Cambios.setText("Cancelar");
-        btn_Cancelar_Cambios.setBounds(220, 450, 150, 30);
+        btn_Cancelar_Cambios.setBounds(220, 300, 150, 30);
         btn_Cancelar_Cambios.setBackground(new java.awt.Color(255, 0, 0)); // Color azul
         btn_Cancelar_Cambios.setVisible(false);
         btn_Cancelar_Cambios.addActionListener(new java.awt.event.ActionListener() {
@@ -162,10 +148,6 @@ public class Panel_Control_Producto extends javax.swing.JPanel {
         this.add(btn_Cancelar_Cambios);
 
         setBackground(new java.awt.Color(210, 242, 238));
-    }
-
-    private void btn_RegresarActionPerformed(java.awt.event.ActionEvent evt) {
-        regresar();
     }
 
     private void btn_Crear_ProductoActionPerformed(java.awt.event.ActionEvent evt) {

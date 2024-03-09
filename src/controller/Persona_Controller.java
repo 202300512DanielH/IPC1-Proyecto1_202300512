@@ -244,6 +244,10 @@ public class Persona_Controller {
         return lista_Doctores;
     }
     
+    public ArrayList<Paciente> get_Lista_Pacietes(){
+        return lista_Pacientes;
+    }
+    
     public int get_id_Persona_Logueada(){
         return id_Persona_Logueada;
     }
@@ -253,6 +257,7 @@ public class Persona_Controller {
         for( Doctor doctor: lista_Doctores ){
             if(doctor.getid() == cita_Nueva.getId_Doctor()){
                 lista_Doctores.get(contador).agregarCita(cita_Nueva);
+                break;
             }
             contador ++;
         }
@@ -260,6 +265,7 @@ public class Persona_Controller {
         for( Paciente paciente: lista_Pacientes ){
             if( paciente.getid() == cita_Nueva.getId_Paciente() ){
                 lista_Pacientes.get(contador).agregarCita(cita_Nueva);
+                break;
             }
             contador ++;
         }
@@ -279,8 +285,8 @@ public class Persona_Controller {
         for(Paciente paciente: lista_Pacientes){
             if(paciente.getid() == id_Paciente){
                 paciente.citas = cita_Controller.actualizar_Lista_Citas(id_Cita, paciente.getCitas(), estado_Nuevo, "Paciente");
+                break;            
             }
-            break;
         }
     }
     
